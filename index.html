@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mohammed Osman Ali — Web Developer</title>
+
+<!--
+  ============================================================
+  PORTFOLIO WEBSITE — PROJECT FOLDER VERSION
+  ============================================================
+  Hi Mohammed! This project now has 3 files, like real websites do:
+
+  1. index.html   -> this file. The structure/content of the page.
+  2. style.css    -> all the colors, layout, and animations.
+  3. script.js    -> the typing effect, fade-ins, and form behavior.
+
+  Keep all 3 files (+ profile-photo.png) in the SAME folder,
+  or the page won't load correctly.
+
+  Open this whole folder in VS Code:
+    File > Open Folder... > select "mohammed-portfolio-folder"
+
+  EASY THINGS TO EDIT (marked with "EDIT ME" comments):
+  - Your name, bio, study info  -> in this file (index.html)
+  - Colors                      -> top of style.css
+  - Taglines that type out      -> top of script.js
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- This line connects the CSS file -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Animated background blobs -->
+<div class="blob-field">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<div class="page">
+
+  <nav>
+    <div class="logo">mohammed<span>.dev</span></div>
+    <div>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ---- HERO ---- -->
+  <section class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">AVAILABLE FOR OPPORTUNITIES</div>
+
+        <!-- EDIT ME: change the name below -->
+        <h1 class="name">Mohammed Osman Ali</h1>
+
+        <!-- This line types itself out using script.js -->
+        <div class="typed-line" id="typedLine"><span class="cursor"></span></div>
+
+        <div class="hero-cta">
+          <a href="#about" class="btn btn-primary">About Me</a>
+          <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+        </div>
+      </div>
+
+      <!-- EDIT ME: replace profile-photo.png with any image file in this folder -->
+      <div class="avatar-wrap">
+        <img src="profile-photo.png" alt="Mohammed Osman Ali" class="avatar-img" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ---- ABOUT ME (styled like a code editor) ---- -->
+  <section id="about">
+    <div class="section-tag">// 01</div>
+    <h2 class="section-title">About Me</h2>
+
+    <div class="editor-window" id="aboutCard">
+      <div class="editor-titlebar">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+        <div class="editor-filename">about-me.js</div>
+      </div>
+      <div class="editor-body">
+        <!-- EDIT ME: this whole block is placeholder text you can rewrite.
+             Just keep the same HTML structure and swap the words. -->
+        <div><span class="ln">1</span><span class="kw">const</span> me = {</div>
+        <div><span class="ln">2</span>&nbsp;&nbsp;<span class="prop">name</span>: <span class="str">"Mohammed Osman Ali"</span>,</div>
+        <div><span class="ln">3</span>&nbsp;&nbsp;<span class="prop">studyingAt</span>: <span class="str">"Shaheen Junior College"</span>,</div>
+        <div><span class="ln">4</span>&nbsp;&nbsp;<span class="prop">course</span>: <span class="str">"MPC — 1st Year"</span>,</div>
+        <div><span class="ln">5</span>&nbsp;&nbsp;<span class="prop">focus</span>: <span class="str">"Learning web development, one project at a time"</span>,</div>
+        <div><span class="ln">6</span>&nbsp;&nbsp;<span class="prop">bio</span>: <span class="str">"Write a couple of lines about yourself here — what you're learning, what excites you about building things, and where you want to go next."</span>,</div>
+        <div><span class="ln">7</span>&nbsp;&nbsp;<span class="prop">basedIn</span>: <span class="str">"India"</span>,</div>
+        <div><span class="ln">8</span>}</div>
+        <div><span class="ln">9</span></div>
+        <div><span class="ln">10</span><span class="com">// this is placeholder content — edit it any time!</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---- CONTACT ---- -->
+  <section id="contact">
+    <div class="section-tag">// 02</div>
+    <h2 class="section-title">Get In Touch</h2>
+
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <p>Have a project in mind, or just want to say hi? Fill out the form and I'll get back to you.</p>
+
+        <!-- EDIT ME: replace with your real email / links -->
+        <a href="mailto:osmanalimohammed201@gmail.com" class="contact-link">
+          <span class="icon-box">@</span> osmanalimohammed201@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/mohammed-osman-ali" class="contact-link" target="_blank" rel="noopener">
+          <span class="icon-box">in</span> linkedin.com/in/mohammed-osman-ali
+        </a>
+        <a href="https://github.com/osmanalimohammed201-dev" class="contact-link" target="_blank" rel="noopener">
+          <span class="icon-box">gh</span> github.com/osmanalimohammed201-dev
+        </a>
+      </div>
+
+      <form id="contactForm">
+        <div>
+          <label for="fname">Name</label>
+          <input type="text" id="fname" placeholder="Your name" required />
+        </div>
+        <div>
+          <label for="femail">Email</label>
+          <input type="email" id="femail" placeholder="you@example.com" required />
+        </div>
+        <div>
+          <label for="fmsg">Message</label>
+          <textarea id="fmsg" placeholder="What would you like to say?" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+        <div class="form-note" id="formNote">This form is a visual demo — connect it to a backend or a service like Formspree to actually receive messages.</div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Mohammed Osman Ali. Built with curiosity and a lot of coffee ☕
+  </footer>
+
+</div>
+
+<!-- This line connects the JavaScript file -->
+<script src="script.js"></script>
+</body>
+</html>
