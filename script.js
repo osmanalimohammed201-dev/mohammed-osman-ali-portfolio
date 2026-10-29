@@ -1,62 +1,98 @@
-/* ============================================================
-   SCRIPT.JS — everything that MOVES or REACTS on the page
-   ============================================================
-   This file has 3 small features:
-   1. The typing animation in the hero section
-   2. Fading in the About Me card when you scroll to it
-   3. A friendly message when the contact form is submitted
-   ============================================================ */
-
-// ---- 1. Typing animation in the hero section ----
-// EDIT ME: change these lines to whatever taglines you like
-const linesToType = [
-  "Aspiring Web Developer",
-  "MPC Student, Shaheen Junior College",
-  "Learning Python, HTML, CSS & JavaScript",
-  "Building one project at a time"
-];
-
-const typedEl = document.getElementById('typedLine');
-let lineIndex = 0, charIndex = 0, deleting = false;
-
-function typeLoop() {
-  const current = linesToType[lineIndex];
-  let display = deleting
-    ? current.substring(0, charIndex--)
-    : current.substring(0, charIndex++);
-
-  typedEl.innerHTML = display + '<span class="cursor"></span>';
-
-  let delay = deleting ? 35 : 65;
-
-  if (!deleting && charIndex === current.length + 1) {
-    delay = 1400; // pause at end of line
-    deleting = true;
-  } else if (deleting && charIndex === 0) {
-    deleting = false;
-    lineIndex = (lineIndex + 1) % linesToType.length;
-    delay = 400;
+/* Progressive enhancements. All content and contact links work without this file. */
+(() => {
+  "use strict";
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const mobile = window.matchMedia("(max-width: 767px)");
+  const nav = document.querySelector(".nav");
+  const toggle = document.querySelector(".menu-toggle");
+  const links = document.querySelector(".nav-links");
+  function closeMenu(returnFocus = false) {
+    const wasOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.lastElementChild.textContent = "+";
+    links.classList.remove("is-open");
+    if (wasOpen && returnFocus) toggle.focus();
   }
-  setTimeout(typeLoop, delay);
-}
-typeLoop();
-
-// ---- 2. Fade in the About Me card when it scrolls into view ----
-const aboutCard = document.getElementById('aboutCard');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      aboutCard.classList.add('visible');
+  function configureMenu() {
+    closeMenu();
+    toggle.hidden = !mobile.matches;
+    nav.classList.toggle("is-enhanced", mobile.matches);
+  }
+  toggle.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") !== "true";
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.lastElementChild.textContent = open ? "−" : "+";
+    links.classList.toggle("is-open", open);
+  });
+  links.addEventListener("click", (event) => {
+    const anchor = event.target.closest("a");
+    if (!anchor) return;
+    const target = document.querySelector(anchor.hash);
+    closeMenu();
+    // Move focus out of the closing menu to the requested section.
+    if (mobile.matches && target) {
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
     }
   });
-}, { threshold: 0.2 });
-observer.observe(aboutCard);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu(true);
+  });
+  document.addEventListener("click", (event) => {
+    if (!nav.contains(event.target)) closeMenu();
+  });
+  nav.addEventListener("focusout", (event) => {
+    if (!nav.contains(event.relatedTarget)) closeMenu();
+  });
+  mobile.addEventListener("change", configureMenu);
+  configureMenu();
 
-// ---- 3. Contact form (demo only — shows a friendly note on submit) ----
-document.getElementById('contactForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const note = document.getElementById('formNote');
-  note.textContent = "Thanks! (This is a demo — hook this up to Formspree/EmailJS to receive real messages.)";
-  note.style.color = "var(--cyan)";
-  this.reset();
-});
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          if (!reducedMotion.matches)
+            entry.target.classList.add("just-revealed");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.08 },
+    );
+    document
+      .querySelectorAll("[data-reveal]")
+      .forEach((el) => observer.observe(el));
+  }
+  const cards = [...document.querySelectorAll("[data-tilt]")];
+  function resetTilt() {
+    cards.forEach((card) => {
+      card.style.removeProperty("--tilt-x");
+      card.style.removeProperty("--tilt-y");
+    });
+  }
+  cards.forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      if (!finePointer.matches || reducedMotion.matches) return;
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty(
+        "--tilt-x",
+        `${(-(event.clientY - rect.top - rect.height / 2) / rect.height) * 6}deg`,
+      );
+      card.style.setProperty(
+        "--tilt-y",
+        `${((event.clientX - rect.left - rect.width / 2) / rect.width) * 6}deg`,
+      );
+    });
+    card.addEventListener("pointerleave", resetTilt);
+  });
+  reducedMotion.addEventListener("change", resetTilt);
+  finePointer.addEventListener("change", resetTilt);
+
+  // Keep the 3D code isolated: failed WebGL never interrupts page interactions.
+  import("./monogram.js")
+    .then((module) => module.mountMonogram({ reducedMotion, finePointer }))
+    .catch(() => {
+      /* The inline SVG image remains visible. */
+    });
+})();

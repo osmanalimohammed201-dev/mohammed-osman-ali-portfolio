@@ -1,0 +1,26 @@
+{
+  "passed": [
+    "WebGL renders real geometry",
+    "Every internal anchor resolves; one h1",
+    "Direct email destination preserved; no demo submission",
+    "Keyboard skip-to-content works",
+    "Native project disclosure opens and closes by keyboard",
+    "360px: no overflow, all images load, zero automated WCAG A/AA violations",
+    "390px: no overflow, all images load, zero automated WCAG A/AA violations",
+    "768px: no overflow, all images load, zero automated WCAG A/AA violations",
+    "1440px: no overflow, all images load, zero automated WCAG A/AA violations",
+    "Mobile menu: toggle, Escape focus return, link closes and focuses destination",
+    "WebGL stops drawing while offscreen",
+    "Live reduced-motion change restores static SVG and stops drawing",
+    "WebGL context loss restores SVG fallback",
+    "WebGL context restoration recreates rendering resources",
+    "Visibility-change handling stops drawing while hidden",
+    "200% zoom-equivalent viewport has no horizontal overflow",
+    "JavaScript disabled: content and navigation remain accessible at 360px",
+    "Unavailable WebGL leaves static SVG and working page",
+    "No uncaught JavaScript errors, failed asset responses, or external requests"
+  ],
+  "errors": [],
+  "badResponses": [],
+  "external": []
+}
